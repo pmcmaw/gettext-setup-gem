@@ -45,6 +45,16 @@ namespace :gettext do
     end
   end
 
+  desc "Run string wrapper against all Ruby files in a module"
+  task :wrap_ruby_string do
+    begin
+      dir = "lib/puppet/functions/"
+      script_dir = File.expand_path('../', File.dirname(__FILE__))
+      wrapper_dir = script_dir + "/string_prep/string_wrapper.rb"
+      system("ruby-rewrite -m --load #{wrapper_dir} #{dir}")
+    end
+  end
+
   desc 'Update PO file for a specific language'
   task :po, [:language] do |_, args|
     begin
